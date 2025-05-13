@@ -1,70 +1,76 @@
 
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { useState } from 'react';
-import Link from 'next/link';
-import Layout from '../components/Layout';
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import Link from "next/link";
+import Head from "next/head";
+import Layout from "../components/Layout";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
-export default function Blog({ posts }) {
-  const [query, setQuery] = useState('');
-  const [filtered, setFiltered] = useState(posts);
+export default function Blog({ posts }: { posts: any[] }) {
+  const [search, setSearch] = useState("");
+  const router = useRouter();
 
-  const handleSearch = (e) => {
-    const val = e.target.value;
-    setQuery(val);
-    if (val === '37D9-TR1N') {
-      window.location.href = '/decryption_passed';
-    } else {
-      setFiltered(posts.filter((post) =>
-        post.title.toLowerCase().includes(val.toLowerCase())
-      ));
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (search.trim() === "37D9-TR1N") {
+      router.push("/hidden_signal");
     }
   };
 
   return (
-    <Layout>
-      <div className="max-w-3xl mx-auto py-12 text-white">
-        <h1 className="text-3xl font-bold mb-4">📡 Broadcast Logs</h1>
-        <input
-          type="text"
-          placeholder="Search transmissions..."
-          value={query}
-          onChange={handleSearch}
-          className="w-full p-2 mb-6 rounded bg-gray-800 text-white border border-gray-700"
-        />
-        <ul className="space-y-4">
-          {filtered.map((post) => (
-            <li key={post.slug}>
-              <Link href={`/blog/${post.slug}`} className="text-red-400 hover:underline text-xl">
-                {post.title}
-              </Link>
-              <p className="text-sm text-gray-500">{post.date}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </Layout>
+    <>
+      <Head>
+        <title>Blog - Carpark Society</title>
+      </Head>
+      <Layout>
+        <div className="max-w-3xl mx-auto py-12 space-y-8 text-white">
+          <h1 className="text-4xl font-bold text-center text-red-400">Field Logs</h1>
+          <form onSubmit={handleSearch} className="mb-6">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search logs..."
+              className="w-full px-4 py-2 border border-gray-700 bg-black text-white rounded focus:outline-none focus:border-red-400"
+            />
+          </form>
+          <ul className="space-y-6">
+            {posts.map((post, index) => (
+              <li key={index}>
+                <Link href={`/posts/${post.slug}`}>
+                  <div className="cursor-pointer hover:text-red-400">
+                    <h2 className="text-xl font-semibold">{post.title}</h2>
+                    <p className="text-sm text-gray-400">{post.date}</p>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Layout>
+    </>
   );
 }
 
 export async function getStaticProps() {
-  const postsDirectory = path.join(process.cwd(), 'posts');
+  const postsDirectory = path.join(process.cwd(), "posts");
   const filenames = fs.readdirSync(postsDirectory);
+
   const posts = filenames.map((filename) => {
     const filePath = path.join(postsDirectory, filename);
-    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const fileContents = fs.readFileSync(filePath, "utf8");
     const { data } = matter(fileContents);
     return {
-      title: data.title,
-      date: data.date,
-      slug: filename.replace(/\.md$/, ''),
+      ...data,
+      slug: filename.replace(/\.md$/, ""),
     };
   });
 
   return {
     props: {
-      posts: posts.sort((a, b) => new Date(b.date) - new Date(a.date)),
+      posts: posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
     },
   };
 }
