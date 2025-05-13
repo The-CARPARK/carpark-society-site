@@ -2,20 +2,23 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
+import Layout from "../../components/Layout";
 
 export default function Blog({ posts }: any) {
   return (
-    <div className="max-w-3xl mx-auto py-8 space-y-6">
-      <h1 className="text-4xl font-bold text-center">Blog of the Carpark</h1>
-      {posts.map((post: any) => (
-        <div key={post.slug} className="border-b border-gray-700 pb-4">
-          <Link href={`/blog/${post.slug}`}>
-            <h2 className="text-xl font-semibold text-red-400 hover:underline">{post.title}</h2>
-          </Link>
-          <p className="text-sm text-gray-500">{post.date}</p>
-        </div>
-      ))}
-    </div>
+    <Layout>
+      <div className="max-w-3xl mx-auto py-8 space-y-6">
+        <h1 className="text-4xl font-bold text-center">Blog of the Carpark</h1>
+        {posts.map((post: any) => (
+          <div key={post.slug} className="border-b border-gray-700 pb-4">
+            <Link href={`/blog/${post.slug}`}>
+              <h2 className="text-xl font-semibold text-red-400 hover:underline">{post.title}</h2>
+            </Link>
+            <p className="text-sm text-gray-500">{post.date}</p>
+          </div>
+        ))}
+      </div>
+    </Layout>
   );
 }
 

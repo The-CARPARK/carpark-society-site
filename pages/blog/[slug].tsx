@@ -2,17 +2,20 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import Layout from "../../components/Layout";
 
 export default function PostPage({ frontmatter, content }: any) {
   return (
-    <div className="max-w-3xl mx-auto py-8">
-      <h1 className="text-4xl font-bold mb-2">{frontmatter.title}</h1>
-      <p className="text-sm text-gray-500 mb-6">{frontmatter.date}</p>
-      <div
-        className="prose prose-invert max-w-none"
-        dangerouslySetInnerHTML={{ __html: marked(content) }}
-      />
-    </div>
+    <Layout>
+      <div className="max-w-3xl mx-auto py-8">
+        <h1 className="text-4xl font-bold mb-2">{frontmatter.title}</h1>
+        <p className="text-sm text-gray-500 mb-6">{frontmatter.date}</p>
+        <div
+          className="prose prose-invert max-w-none"
+          dangerouslySetInnerHTML={{ __html: marked(content) }}
+        />
+      </div>
+    </Layout>
   );
 }
 
