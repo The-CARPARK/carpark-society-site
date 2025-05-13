@@ -11,32 +11,34 @@ export default function Layout({ children }: { children: ReactNode }) {
         <p className="text-sm text-gray-400 uppercase">
           Surveillance. Ritual. Revelation.
         </p>
-        <nav className="flex justify-center gap-4 mt-4">
-          <Link
-            href="/history"
-            className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
-          >
-            History
-          </Link>
-          <Link
-            href="/blog"
-            className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/events"
-            className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
-          >
-            Upcoming Events
-          </Link>
-          <Link
-            href="/report"
-            className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
-          >
-            Membership
-          </Link>
-        </nav>
+        <div className="overflow-x-auto">
+          <nav className="flex justify-center gap-2 mt-4 flex-wrap sm:flex-nowrap whitespace-nowrap">
+            <Link
+              href="/history"
+              className="px-3 py-1 text-xs sm:text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
+            >
+              History
+            </Link>
+            <Link
+              href="/blog"
+              className="px-3 py-1 text-xs sm:text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
+            >
+              Blog
+            </Link>
+            <Link
+              href="/events"
+              className="px-3 py-1 text-xs sm:text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
+            >
+              Upcoming Events
+            </Link>
+            <Link
+              href="/report"
+              className="px-3 py-1 text-xs sm:text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
+            >
+              Membership
+            </Link>
+          </nav>
+        </div>
       </header>
 
       <main className="flex-grow p-6">{children}</main>
