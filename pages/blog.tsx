@@ -1,44 +1,90 @@
-import Head from "next/head";
-import Link from "next/link";
-import Layout from "../components/Layout";
 
-export default function Blog() {
-  const posts = [
-    {
-      title: "🌀 What Was Seen on Level 3",
-      date: "May 2025",
-      slug: "level-3-sighting"
+import Head from "next/head";
+import Layout from "../components/Layout";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import Link from "next/link";
+import { useState } from "react";
+
+interface Post {
+  slug: string;
+  title: string;
+  date: string;
+}
+
+export async function getStaticProps() {
+  const postsDirectory = path.join(process.cwd(), "posts");
+  const filenames = fs.readdirSync(postsDirectory);
+
+  const posts: Post[] = filenames.map((filename) => {
+    const filePath = path.join(postsDirectory, filename);
+    const fileContents = fs.readFileSync(filePath, "utf8");
+    const { data } = matter(fileContents);
+
+    return {
+      slug: filename.replace(/\.tsx$/, ""),
+      title: data.title,
+      date: data.date,
+    };
+  });
+
+  return {
+    props: {
+      posts,
     },
-    {
-      title: "📸 Stream Failures and Prophetic Glitches",
-      date: "April 2025",
-      slug: "stream-glitch"
-    },
-    {
-      title: "🗓️ The Parking Calendar and New Moon Alignments",
-      date: "March 2025",
-      slug: "parking-calendar"
+  };
+}
+
+export default function BlogPage({ posts }: { posts: Post[] }) {
+  const [query, setQuery] = useState("");
+  const [filtered, setFiltered] = useState<Post[] | null>(null);
+
+  const handleSearch = () => {
+    if (query === "37D9-TR1N") {
+      window.location.href = "/signal_depth";
+    } else {
+      setFiltered([]);
     }
-  ];
+  };
 
   return (
     <>
       <Head>
-        <title>Blog | The Carpark Society</title>
+        <title>Watch Logs</title>
       </Head>
       <Layout>
-        <div className="max-w-3xl mx-auto space-y-6">
-          <h1 className="text-4xl font-bold text-center">📚 The Logbook</h1>
-          <ul className="space-y-4">
-            {posts.map((post) => (
-              <li key={post.slug} className="border-b border-gray-700 pb-4">
-                <Link href={`/blog/${post.slug}`} className="text-2xl text-yellow-400 hover:underline block">
-                  {post.title}
-                </Link>
-                <p className="text-sm text-gray-500">{post.date}</p>
-              </li>
-            ))}
-          </ul>
+        <div className="max-w-3xl mx-auto py-12 space-y-6 text-white">
+          <h1 className="text-4xl font-bold text-center text-red-400">Watch Logs</h1>
+          <div className="text-center mt-6 space-y-4">
+            <input
+              type="text"
+              placeholder="Search signal archives..."
+              className="px-4 py-2 bg-black border border-gray-600 rounded text-sm text-white w-full max-w-md"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button
+              onClick={handleSearch}
+              className="ml-2 px-4 py-2 border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors text-sm"
+            >
+              Search
+            </button>
+          </div>
+          <div className="mt-8 space-y-4">
+            {(filtered ?? posts).length > 0 ? (
+              (filtered ?? posts).map((post) => (
+                <div key={post.slug}>
+                  <Link href={`/posts/${post.slug}`} className="text-lg text-blue-400 hover:underline">
+                    {post.title}
+                  </Link>
+                  <p className="text-xs text-gray-400">{post.date}</p>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-gray-500 italic text-center mt-8">No results found. Static interference?</p>
+            )}
+          </div>
         </div>
       </Layout>
     </>
