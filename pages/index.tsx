@@ -2,7 +2,6 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "../components/ui/card";
 import { Button } from "../components/ui/button";
-import "../styles/globals.css";
 
 export default function Home() {
   const [oracleMessage, setOracleMessage] = useState("Awaiting divine transmission...");
