@@ -1,18 +1,18 @@
-import Layout from "@/components/layout";
+import Layout from '../../components/layout';
 
 export default function Level7Page() {
   return (
     <Layout>
-      <h1 className="text-2xl font-bold mb-4">Level 7 – The Watchtower Above Wellington</h1>
-      <p>This level uncovers the strange saga of the Lombard Car Park rooftop: once headquarters of WREMO (Wellington Region Emergency Management Office), now a mythic summit. Key insights:</p>
-      <ul className="list-disc pl-6 mt-2">
-        <li><strong>Emergency HQ (2012–2016):</strong> WREMO used Level 7 as a disaster command center—until the Kaikōura earthquake struck.</li>
-        <li><strong>Abandonment & Reversion:</strong> Earthquake damage forced evacuation. The floor was later stripped and returned to parking use.</li>
-        <li><strong>Watcher Mythology:</strong> The rooftop was seen as a modern “watchtower”—its fall echoing the descent of biblical watchers from heaven.</li>
-        <li><strong>Ritual Theory:</strong> The space served as a civic ritual site, then a liminal void, and now a mundane deck layered with memory.</li>
-        <li><strong>Māori Cosmology:</strong> The quake’s timing, celestial signs, and symbolic fall suggest a deeper narrative involving Rūaumoko and Tāwhirimātea.</li>
-      </ul>
-      <p className="mt-4">To the Watchers, Level 7 is more than asphalt—it is a parable of vigilance, hubris, and descent, played out above the streets of Te Aro.</p>
+      <h1 className="text-2xl font-bold mb-4">Level 7 – The Fallen Watchtower of Lombard Car Park</h1>
+      <p>
+        From 2012 to 2016, Level 7 of the Lombard Street Car Park in Wellington served as WREMO’s Emergency Coordination Centre—a command post above the city. After the 2016 Kaikōura earthquake, the rooftop HQ was abandoned due to structural risks. By 2018, it was reverted back to carpark use, stripping away signs of its civil defence past.
+      </p>
+      <p>
+        To Watchers, this rooftop remains symbolically potent. It was the city’s “watchtower,” a high place of preparedness. Its fall is read through urban ritual theory (as a site of consecration and deritualization), through conspiracy hermeneutics (as an event rich in symbolic timing and celestial parallels), and through Māori cosmology (as a narrative shaped by the forces of Rūaumoko and Tāwhirimātea).
+      </p>
+      <p>
+        Today, cars once again occupy Level 7, but the memory of its higher purpose lingers. To stand there is to straddle the mundane and the mythic—a place where a city once watched over itself from above and was reminded, by quake and time, of its own limits.
+      </p>
     </Layout>
   );
 }

@@ -1,18 +1,21 @@
-import Layout from "@/components/layout";
+import Layout from '../../components/layout';
 
 export default function Level3Page() {
   return (
     <Layout>
-      <h1 className="text-2xl font-bold mb-4">Underground Tunnels Beneath and Around Bond Street</h1>
-      <p>This level explores the hidden infrastructure and buried history beneath Bond Street in Wellington. Key features include:</p>
-      <ul className="list-disc pl-6 mt-2">
-        <li><strong>Waimapihi Stream Culvert:</strong> An old brick-lined tunnel carrying the Waimapihi Stream beneath the city, with cultural and ecological significance.</li>
-        <li><strong>1990s Microtunnel:</strong> A hand-mined stormwater tunnel under Bond Street, designed to alleviate flooding while preserving archaeological layers.</li>
-        <li><strong>Subterranean Heritage:</strong> Wartime shelters, Victorian drains, and foundations from Wellington’s past discovered during modern excavation projects.</li>
-        <li><strong>Urban Risks:</strong> Earthquakes and flooding threaten these aging underground systems; engineers maintain them with camera inspections and future-proofing plans.</li>
-        <li><strong>Public Memory:</strong> Efforts like murals and historical trails keep the story of these hidden tunnels alive.</li>
-      </ul>
-      <p className="mt-4">The full report includes mapping data, utility records, and cultural analysis. For the Watchers, Bond Street is more than just a laneway—it’s a layered portal beneath the surface of the city.</p>
+      <h1 className="text-2xl font-bold mb-4">Underground Tunnels Beneath and Around Bond Street, Wellington (Te Aro)</h1>
+      <p>
+        Bond Street, historically known as Old Customhouse Street, sits atop layers of reclaimed land and hidden infrastructure in Wellington’s Te Aro district. The original shoreline ran near Mercer and Willis Streets, and today the area is threaded with significant underground features. Most notable are the Waimapihi Stream culvert and a stormwater tunnel from the 1990s.
+      </p>
+      <p>
+        The Waimapihi Stream, once a surface waterway, now flows underground through a 1930s brick culvert. It passes under Cuba Street and near Bond Street, carrying stormwater to the harbour. The culvert, though inaccessible, remains crucial and historically significant. A modern addition came in the 1990s: a 1.35–1.5m diameter stormwater tunnel dug beneath Bond Street using microtunneling. This project navigated marine sediments and buried debris from 19th-century structures.
+      </p>
+      <p>
+        Though Bond Street lacks pedestrian-accessible utility tunnels, service lines for electricity, telecom, and wastewater are buried beneath. Electricity cables run in trenches, not subways, while wastewater flows in smaller, older pipes connected to the city’s interceptor system. Some remnants of wooden gutters and colonial culverts were uncovered in recent works, confirming the area’s historic drainage legacy.
+      </p>
+      <p>
+        No wartime bunkers exist directly under Bond Street, but Te Aro residents had access to nearby 1940s air-raid shelters on Taranaki Street. Modern urban risks include flood overflow and liquefaction during earthquakes due to the soft reclaimed land. Nevertheless, the tunnels beneath Bond Street reflect a layered infrastructure—part colonial, part modern—that continues to shape how the city works and remembers its past.
+      </p>
     </Layout>
   );
 }
