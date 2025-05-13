@@ -30,6 +30,12 @@ export default function Layout({ children }: { children: ReactNode }) {
           >
             Upcoming Events
           </Link>
+          <Link
+            href="/report"
+            className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
+          >
+            Membership
+          </Link>
         </nav>
       </header>
 
