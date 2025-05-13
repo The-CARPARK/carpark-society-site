@@ -1,63 +1,73 @@
 import Head from "next/head";
-import Link from "next/link";
+import Layout from "../../components/Layout";
 import { useState } from "react";
-import fs from "fs";
-import path from "path";
+import Link from "next/link";
 
-export async function getStaticProps() {
-  const postsDirectory = path.join(process.cwd(), "posts");
-  const filenames = fs.readdirSync(postsDirectory);
-  const posts = filenames.map(name => {
-    const filePath = path.join(postsDirectory, name);
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const titleMatch = fileContent.match(/title: "(.*?)"/);
-    const dateMatch = fileContent.match(/date: "(.*?)"/);
-    return {
-      slug: name.replace(/\.tsx$/, ""),
-      title: titleMatch ? titleMatch[1] : "Untitled",
-      date: dateMatch ? dateMatch[1] : "Unknown"
-    };
-  });
-  return { props: { posts } };
-}
-
-export default function Blog({ posts }) {
+export default function BlogPage() {
   const [query, setQuery] = useState("");
-  const correctCode = "37D9-TR1N";
-  const filtered = query === ""
-    ? posts
-    : query === correctCode
-    ? posts.filter(post => post.slug === "signal_depth")
-    : [];
+  const [codeRevealed, setCodeRevealed] = useState(false);
+
+  const posts = [
+    { slug: "first-transmission", title: "First Transmission" },
+    { slug: "broadcast-from-level6", title: "Broadcast from Level 6" },
+    { slug: "beneath-the-asphalt", title: "Beneath the Asphalt" }
+  ];
+
+  const handleSearch = () => {
+    if (query.trim() === "37D9-TR1N") {
+      setCodeRevealed(true);
+    } else {
+      setCodeRevealed(false);
+    }
+  };
 
   return (
     <>
       <Head>
-        <title>Blog - Signals from the Structure</title>
+        <title>Blog - Carpark Society</title>
       </Head>
-      <div className="max-w-3xl mx-auto py-12 space-y-8 text-white">
-        <h1 className="text-4xl font-bold text-center text-red-400">Signals from the Structure</h1>
-        <div className="text-center mb-6">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for signals..."
-            className="w-full px-4 py-2 border border-gray-700 bg-black text-white placeholder-gray-500 rounded"
-          />
+      <Layout>
+        <div className="max-w-3xl mx-auto py-12 space-y-8 text-white">
+          <h1 className="text-4xl font-bold text-red-400 text-center">Blog</h1>
+          <div className="text-center">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search transmissions"
+              className="px-4 py-2 text-black rounded mr-2"
+            />
+            <button
+              onClick={handleSearch}
+              className="px-4 py-2 border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors text-sm"
+            >
+              Search
+            </button>
+          </div>
+
+          {codeRevealed && (
+            <div className="text-green-400 text-center text-sm">
+              Decryption accepted. <Link href="/signal-depth" className="underline hover:text-white">Access SIGNAL DEPTH</Link>
+            </div>
+          )}
+
+          {!codeRevealed && query && (
+            <div className="text-gray-400 text-center text-sm italic">
+              No results found. Static interference?
+            </div>
+          )}
+
+          <div className="space-y-4">
+            {posts.map((post) => (
+              <div key={post.slug}>
+                <Link href={`/posts/${post.slug}`}>
+                  <p className="text-lg text-red-300 hover:underline">{post.title}</p>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-        <ul className="space-y-4">
-          {filtered.map((post) => (
-            <li key={post.slug}>
-              <Link href={`/posts/${post.slug}`} className="text-lg text-red-300 hover:text-white transition-colors">
-                {post.title}
-              </Link>
-              <p className="text-sm text-gray-500">{post.date}</p>
-            </li>
-          ))}
-        </ul>
-        {filtered.length === 0 && <p className="text-center text-gray-500 text-sm italic">Nothing received on this frequency.</p>}
-      </div>
+      </Layout>
     </>
   );
 }
