@@ -14,6 +14,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <nav className="space-x-4 text-sm uppercase text-gray-400">
           <Link href="/history" className="hover:text-white">History</Link>
           <Link href="/blog" className="hover:text-white">Blog</Link>
+          <Link href="/events" className="hover:text-white">Upcoming Events</Link>
         </nav>
       </header>
 
@@ -25,7 +26,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             href="https://linktr.ee/TheCarParkSociety"
             target="_blank"
             rel="noopener noreferrer"
-            className="glitch-button"
+            className="text-sm text-gray-400 hover:text-white transition-colors"
           >
             🌐 Access Network
           </a>
