@@ -1,32 +1,35 @@
 
 import Head from "next/head";
-import Layout from "../components/Layout";
+import { useState } from "react";
 
 export default function Custom404() {
+  const [level, setLevel] = useState(0);
+
   return (
     <>
       <Head>
-        <title>Error 404 - Veil Breach</title>
-        <meta name="description" content="This page does not exist. Or does it?" />
+        <title>404 - The Loop Breaks</title>
+        <meta name="description" content="The page you seek is not here. The loop stutters." />
       </Head>
-      <Layout>
-        <div className="max-w-2xl mx-auto py-20 text-white space-y-8 text-center">
-          <h1 className="text-6xl font-bold text-red-500 glitch">404</h1>
-          <p className="text-gray-400 italic">The file you seek is not here. But something is.</p>
-          <div className="text-sm text-gray-300 space-y-6 leading-relaxed">
-            <p>“You have reached the unlevelled floor — the zone beneath the ramps, behind the mirror glass.”</p>
-            <p>The Watchers log your presence. This page has no coordinates. There is no exit recorded.</p>
-            <p><span className="text-red-400">𓂀</span> Coordinates scrambled. Archive sealed since 1991.</p>
-            <p>Return to your last known location or face <code className="text-yellow-300">Loop Condition: LEVEL:NULL</code>.</p>
-            <p>If you are reading this, it may already be too late to forget.</p>
-          </div>
-          <div className="pt-10">
-            <a href="/" className="text-blue-400 hover:text-blue-300 underline">
-              ⮌ Return to Base Level
-            </a>
-          </div>
+      <div className="min-h-screen bg-black text-white font-mono flex flex-col justify-center items-center p-8 space-y-6">
+        <h1 className="text-5xl text-red-500 font-bold tracking-widest">404</h1>
+        <p className="text-xl text-gray-400">The page you seek has collapsed.</p>
+        <div
+          className="text-sm text-gray-500 cursor-pointer hover:text-white transition-colors"
+          onClick={() => setLevel(level + 1)}
+        >
+          🔁 Loop Condition: LEVEL:{level === 0 ? "NULL" : level}
         </div>
-      </Layout>
+        {level >= 6 && (
+          <button
+            className="mt-4 px-4 py-2 bg-red-600 hover:bg-red-800 text-white text-sm rounded"
+            onClick={() => alert("ACCESS GRANTED: You have ascended.")}
+          >
+            ☣️ UNLOCK GATE
+          </button>
+        )}
+        <p className="text-xs text-gray-600 pt-10">...trace sequence diverged...</p>
+      </div>
     </>
   );
 }
