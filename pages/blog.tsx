@@ -1,63 +1,54 @@
-import Head from "next/head";
-import Layout from "../components/Layout";
-import { useState } from "react";
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import Link from "next/link";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import Head from 'next/head';
+import Link from 'next/link';
+import Layout from '../components/Layout';
+import { useState } from 'react';
 
-interface Post {
-  slug: string;
+type Post = {
   title: string;
   date: string;
-}
+  slug: string;
+};
 
 export default function Blog({ posts }: { posts: Post[] }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [showSecret, setShowSecret] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const secretCode = '37D9-TR1N';
 
-  const handleSearch = () => {
-    if (searchTerm.trim() === "37D9-TR1N") {
-      setShowSecret(true);
-    }
-  };
+  const filteredPosts = searchTerm === secretCode
+    ? posts
+    : searchTerm === ''
+    ? posts
+    : [];
 
   return (
     <>
       <Head>
-        <title>Blog - Broadcast Logs</title>
-        <meta name="description" content="Ongoing transmissions from The Carpark Society." />
+        <title>Blog - The Carpark Society</title>
       </Head>
       <Layout>
         <div className="max-w-3xl mx-auto py-12 space-y-8 text-white">
-          <h1 className="text-4xl font-bold text-center text-red-400">Broadcast Logs</h1>
-          <div className="flex justify-center gap-2 mt-6">
+          <h1 className="text-4xl font-bold text-center text-red-400">The Watchers’ Log</h1>
+          <div className="mt-6">
             <input
               type="text"
-              placeholder="Search code..."
+              placeholder="Search for anomalies..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="px-3 py-1 text-black text-sm"
+              className="w-full p-2 text-black rounded"
             />
-            <button
-              onClick={handleSearch}
-              className="px-3 py-1 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
-            >
-              Search
-            </button>
+            {searchTerm && filteredPosts.length === 0 && (
+              <p className="text-sm text-gray-500 mt-2">No results found. Static interference?</p>
+            )}
           </div>
-          {showSecret && (
-            <p className="text-green-400 text-center text-sm">
-              Code recognized. <Link href="/decrypt" className="underline hover:text-red-500">Proceed to decryption node</Link>
-            </p>
-          )}
-          <ul className="space-y-4 pt-6">
-            {posts.map(({ slug, title, date }) => (
-              <li key={slug}>
-                <Link href={`/posts/${slug}`} className="block hover:text-red-400">
-                  <p className="text-lg font-semibold">{title}</p>
-                  <p className="text-sm text-gray-500 italic">{date}</p>
+          <ul className="space-y-4">
+            {filteredPosts.map(({ title, date, slug }) => (
+              <li key={slug} className="border-b border-gray-700 pb-2">
+                <Link href={`/posts/${slug}`} className="text-lg text-blue-300 hover:underline">
+                  {title}
                 </Link>
+                <p className="text-sm text-gray-500">{date}</p>
               </li>
             ))}
           </ul>
@@ -68,22 +59,19 @@ export default function Blog({ posts }: { posts: Post[] }) {
 }
 
 export async function getStaticProps() {
-  const postsDirectory = path.join(process.cwd(), "posts");
+  const postsDirectory = path.join(process.cwd(), 'posts');
   const filenames = fs.readdirSync(postsDirectory);
 
-  const posts = filenames
-    .filter((file) => file.endsWith(".md"))
-    .map((filename) => {
-      const filePath = path.join(postsDirectory, filename);
-      const fileContents = fs.readFileSync(filePath, "utf8");
-      const { data } = matter(fileContents);
-
-      return {
-        slug: filename.replace(/\.md$/, ""),
-        title: data.title || "Untitled",
-        date: data.date || "Unknown",
-      };
-    });
+  const posts = filenames.map((filename) => {
+    const filePath = path.join(postsDirectory, filename);
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const { data } = matter(fileContents);
+    return {
+      title: data.title,
+      date: data.date,
+      slug: filename.replace(/\.md$/, ''),
+    };
+  });
 
   return {
     props: {
