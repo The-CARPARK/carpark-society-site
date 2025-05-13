@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import Layout from "../components/Layout";
 
 export default function Blog() {
   const posts = [
@@ -25,7 +26,7 @@ export default function Blog() {
       <Head>
         <title>Blog | The Carpark Society</title>
       </Head>
-      <main className="min-h-screen bg-black text-white font-mono p-8">
+      <Layout>
         <div className="max-w-3xl mx-auto space-y-6">
           <h1 className="text-4xl font-bold text-center">📚 The Logbook</h1>
           <ul className="space-y-4">
@@ -39,7 +40,7 @@ export default function Blog() {
             ))}
           </ul>
         </div>
-      </main>
+      </Layout>
     </>
   );
 }
