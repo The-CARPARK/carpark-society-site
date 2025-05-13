@@ -62,8 +62,6 @@ export default function Home() {
             <Button className="bg-yellow-600 hover:bg-yellow-700 w-full">
               <a href="https://ko-fi.com/thecarparksocietyinc" target="_blank" rel="noopener noreferrer">
 				Donate via Ko-fi
-				</a>
-
               </a>
             </Button>
           </section>
