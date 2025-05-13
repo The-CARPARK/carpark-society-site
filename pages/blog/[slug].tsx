@@ -1,36 +1,18 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { marked } from "marked";
-import Link from "next/link";
+import { remark } from "remark";
+import html from "remark-html";
 import Layout from "../../components/Layout";
-
-export default function PostPage({ frontmatter, content }: any) {
-  return (
-    <Layout>
-      <div className="max-w-3xl mx-auto py-8">
-        <Link href="/blog">
-          <span className="text-sm text-gray-400 hover:text-white transition-colors inline-block mb-4">
-            ← Back to Blog
-          </span>
-        </Link>
-        <h1 className="text-4xl font-bold mb-2">{frontmatter.title}</h1>
-        <p className="text-sm text-gray-500 mb-6">{frontmatter.date}</p>
-        <div
-          className="prose prose-invert max-w-none"
-          dangerouslySetInnerHTML={{ __html: marked(content) }}
-        />
-      </div>
-    </Layout>
-  );
-}
+import Head from "next/head";
 
 export async function getStaticPaths() {
-  const files = fs.readdirSync(path.join("posts"));
+  const postsDirectory = path.join(process.cwd(), "posts");
+  const filenames = fs.readdirSync(postsDirectory);
 
-  const paths = files.map((filename) => ({
+  const paths = filenames.map((filename) => ({
     params: {
-      slug: filename.replace(".md", ""),
+      slug: filename.replace(/\.md$/, ""),
     },
   }));
 
@@ -40,14 +22,45 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params: { slug } }: any) {
-  const markdownWithMeta = fs.readFileSync(path.join("posts", slug + ".md"), "utf-8");
-  const { data: frontmatter, content } = matter(markdownWithMeta);
+export async function getStaticProps({ params }: { params: { slug: string } }) {
+  const filePath = path.join(process.cwd(), "posts", `${params.slug}.md`);
+  const fileContents = fs.readFileSync(filePath, "utf8");
+
+  const { data, content } = matter(fileContents);
+  const processedContent = await remark().use(html).process(content);
+  const contentHtml = processedContent.toString();
 
   return {
     props: {
-      frontmatter,
-      content,
+      title: data.title,
+      date: data.date,
+      contentHtml,
     },
   };
+}
+
+export default function BlogPost({
+  title,
+  date,
+  contentHtml,
+}: {
+  title: string;
+  date: string;
+  contentHtml: string;
+}) {
+  return (
+    <Layout>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <div className="max-w-3xl mx-auto py-12 text-white space-y-4">
+        <h1 className="text-3xl font-bold text-red-400">{title}</h1>
+        <p className="text-gray-400 text-sm italic">{date}</p>
+        <article
+          className="prose prose-invert prose-sm text-gray-300 mt-4"
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
+      </div>
+    </Layout>
+  );
 }
