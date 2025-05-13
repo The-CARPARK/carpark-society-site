@@ -1,35 +1,54 @@
-
 import Head from "next/head";
 import { useState } from "react";
+import Layout from "../components/Layout";
+import { useRouter } from "next/router";
 
 export default function Custom404() {
   const [level, setLevel] = useState(0);
+  const router = useRouter();
+
+  const handleLevelClick = () => {
+    setLevel(prev => prev + 1);
+  };
+
+  const handleHomeClick = () => {
+    if (level === 6) {
+      router.push("/secret");
+    } else {
+      router.push("/");
+    }
+  };
 
   return (
     <>
       <Head>
-        <title>404 - The Loop Breaks</title>
-        <meta name="description" content="The page you seek is not here. The loop stutters." />
+        <title>404 - SIGNAL LOST</title>
       </Head>
-      <div className="min-h-screen bg-black text-white font-mono flex flex-col justify-center items-center p-8 space-y-6">
-        <h1 className="text-5xl text-red-500 font-bold tracking-widest">404</h1>
-        <p className="text-xl text-gray-400">The page you seek has collapsed.</p>
-        <div
-          className="text-sm text-gray-500 cursor-pointer hover:text-white transition-colors"
-          onClick={() => setLevel(level + 1)}
-        >
-          🔁 Loop Condition: LEVEL:{level === 0 ? "NULL" : level}
-        </div>
-        {level >= 6 && (
+      <Layout>
+        <div className="flex flex-col items-center justify-center min-h-[70vh] text-center space-y-6 text-white">
+          <h1 className="text-5xl font-bold text-red-500">404</h1>
+          <p className="text-xl text-gray-400">The signal does not reach this far.</p>
+          <p className="text-sm text-gray-500 italic">Loop Condition: <span onClick={handleLevelClick} className="cursor-pointer hover:text-red-400 transition-all">LEVEL:{level === 0 ? "NULL" : level}</span></p>
+          {level >= 6 && (
+            <>
+              <p className="text-green-400 animate-pulse text-sm">LEVEL 6 UNLOCKED — Access Node Detected</p>
+              <p className="text-xs text-yellow-200 italic">"He who loops six times shall see the door."</p>
+            </>
+          )}
+          <div className="mt-8 space-y-3 text-xs text-gray-500 max-w-md">
+            <p>◯ The signal frays where memory pools.</p>
+            <p>◯ Echoes of watchers long gone tremble through the pillars.</p>
+            <p>◯ Time bleeds backwards here. Do not breathe too deeply.</p>
+            <p>◯ If you reach the center, *do not knock twice.*</p>
+          </div>
           <button
-            className="mt-4 px-4 py-2 bg-red-600 hover:bg-red-800 text-white text-sm rounded"
-            onClick={() => alert("ACCESS GRANTED: You have ascended.")}
+            onClick={handleHomeClick}
+            className="mt-6 px-4 py-2 border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors text-sm"
           >
-            ☣️ UNLOCK GATE
+            Return to Home
           </button>
-        )}
-        <p className="text-xs text-gray-600 pt-10">...trace sequence diverged...</p>
-      </div>
+        </div>
+      </Layout>
     </>
   );
 }
