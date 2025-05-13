@@ -11,10 +11,25 @@ export default function Layout({ children }: { children: ReactNode }) {
         <p className="text-sm text-gray-400 uppercase">
           Surveillance. Ritual. Revelation.
         </p>
-        <nav className="space-x-4 text-sm uppercase text-gray-400">
-          <Link href="/history" className="hover:text-white">History</Link>
-          <Link href="/blog" className="hover:text-white">Blog</Link>
-          <Link href="/events" className="hover:text-white">Upcoming Events</Link>
+        <nav className="flex justify-center gap-4 mt-4">
+          <Link
+            href="/history"
+            className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
+          >
+            History
+          </Link>
+          <Link
+            href="/blog"
+            className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
+          >
+            Blog
+          </Link>
+          <Link
+            href="/events"
+            className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
+          >
+            Upcoming Events
+          </Link>
         </nav>
       </header>
 
