@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -12,25 +13,16 @@ export default function Layout({ children }: { children: ReactNode }) {
           Surveillance. Ritual. Revelation.
         </p>
         <nav className="flex justify-center gap-4 mt-4 flex-wrap">
-          <Link href="/history" className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 transition-colors">
-            History
-          </Link>
-          <Link href="/blog" className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 transition-colors">
-            Blog
-          </Link>
-          <Link href="/events" className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 transition-colors">
-            Upcoming Events
-          </Link>
-          <Link href="/report" className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 transition-colors">
-            Membership
-          </Link>
+          <Link href="/history" className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800">History</Link>
+          <Link href="/blog" className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800">Blog</Link>
+          <Link href="/events" className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800">Upcoming Events</Link>
+          <Link href="/report" className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800">Membership</Link>
         </nav>
       </header>
       <main className="flex-grow p-6">{children}</main>
       <footer className="p-4 border-t border-gray-700 text-center space-y-2">
         <div>
-          <a href="https://linktr.ee/TheCarParkSociety" target="_blank" rel="noopener noreferrer"
-             className="text-sm text-gray-400 hover:text-white transition-colors">
+          <a href="https://linktr.ee/TheCarParkSociety" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white">
             🌐 Access Network
           </a>
         </div>
