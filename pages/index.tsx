@@ -59,10 +59,6 @@ export default function Home() {
               </a>
             </Button>
           </section>
-
-          <footer className="pt-8 text-center text-xs text-gray-600">
-            Observed by The Watchers © {new Date().getFullYear()} — All frequencies monitored.
-          </footer>
         </div>
       </Layout>
     </>
