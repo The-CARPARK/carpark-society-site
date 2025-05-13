@@ -60,8 +60,10 @@ export default function Home() {
               Your offerings help maintain the cameras, the wine supply, and the sacred fan that points at nothing.
             </p>
             <Button className="bg-yellow-600 hover:bg-yellow-700 w-full">
-              <a href="https://ko-fi.com/YOUR_KOFI_HANDLE" target="_blank" rel="noopener noreferrer">
-                Donate via Ko-fi
+              <a href="https://ko-fi.com/thecarparksocietyinc" target="_blank" rel="noopener noreferrer">
+				Donate via Ko-fi
+				</a>
+
               </a>
             </Button>
           </section>
