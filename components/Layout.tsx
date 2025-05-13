@@ -25,9 +25,9 @@ export default function Layout({ children }: { children: ReactNode }) {
             href="https://linktr.ee/TheCarParkSociety"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-gray-400 hover:text-white transition-colors"
+            className="glitch-button"
           >
-            🌐 All Links & Surveillance Nodes
+            🌐 Access Network
           </a>
         </div>
         <p className="text-xs text-gray-500">

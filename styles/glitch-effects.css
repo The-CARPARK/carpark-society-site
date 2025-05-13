@@ -1,0 +1,45 @@
+
+/* Add to your global CSS or component-level styles */
+
+.glitch-button {
+  background: linear-gradient(to right, #222 50%, #ff004c 50%);
+  background-size: 200% 100%;
+  background-position: right;
+  color: #0ff;
+  border: 1px solid #0ff;
+  font-family: monospace;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: background-position 0.5s ease, color 0.5s ease;
+}
+
+.glitch-button:hover {
+  background-position: left;
+  color: #fff;
+  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+}
+
+.glitch-button::before,
+.glitch-button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #0ff;
+  animation: scanlines 1.2s infinite linear alternate;
+}
+
+.glitch-button::before {
+  top: 0;
+}
+
+.glitch-button::after {
+  bottom: 0;
+}
+
+@keyframes scanlines {
+  0% { opacity: 0; transform: translateX(-100%); }
+  100% { opacity: 1; transform: translateX(100%); }
+}
