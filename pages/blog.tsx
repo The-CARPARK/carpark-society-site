@@ -1,92 +1,70 @@
 
-import Head from "next/head";
-import Layout from "../components/Layout";
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import Link from "next/link";
-import { useState } from "react";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { useState } from 'react';
+import Link from 'next/link';
+import Layout from '../components/Layout';
 
-interface Post {
-  slug: string;
-  title: string;
-  date: string;
+export default function Blog({ posts }) {
+  const [query, setQuery] = useState('');
+  const [filtered, setFiltered] = useState(posts);
+
+  const handleSearch = (e) => {
+    const val = e.target.value;
+    setQuery(val);
+    if (val === '37D9-TR1N') {
+      window.location.href = '/decryption_passed';
+    } else {
+      setFiltered(posts.filter((post) =>
+        post.title.toLowerCase().includes(val.toLowerCase())
+      ));
+    }
+  };
+
+  return (
+    <Layout>
+      <div className="max-w-3xl mx-auto py-12 text-white">
+        <h1 className="text-3xl font-bold mb-4">📡 Broadcast Logs</h1>
+        <input
+          type="text"
+          placeholder="Search transmissions..."
+          value={query}
+          onChange={handleSearch}
+          className="w-full p-2 mb-6 rounded bg-gray-800 text-white border border-gray-700"
+        />
+        <ul className="space-y-4">
+          {filtered.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/blog/${post.slug}`} className="text-red-400 hover:underline text-xl">
+                {post.title}
+              </Link>
+              <p className="text-sm text-gray-500">{post.date}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Layout>
+  );
 }
 
 export async function getStaticProps() {
-  const postsDirectory = path.join(process.cwd(), "posts");
+  const postsDirectory = path.join(process.cwd(), 'posts');
   const filenames = fs.readdirSync(postsDirectory);
-
-  const posts: Post[] = filenames.map((filename) => {
+  const posts = filenames.map((filename) => {
     const filePath = path.join(postsDirectory, filename);
-    const fileContents = fs.readFileSync(filePath, "utf8");
+    const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data } = matter(fileContents);
-
     return {
-      slug: filename.replace(/\.tsx$/, ""),
       title: data.title,
       date: data.date,
+      slug: filename.replace(/\.md$/, ''),
     };
   });
 
   return {
     props: {
-      posts,
+      posts: posts.sort((a, b) => new Date(b.date) - new Date(a.date)),
     },
   };
-}
-
-export default function BlogPage({ posts }: { posts: Post[] }) {
-  const [query, setQuery] = useState("");
-  const [filtered, setFiltered] = useState<Post[] | null>(null);
-
-  const handleSearch = () => {
-    if (query === "37D9-TR1N") {
-      window.location.href = "/signal_depth";
-    } else {
-      setFiltered([]);
-    }
-  };
-
-  return (
-    <>
-      <Head>
-        <title>Watch Logs</title>
-      </Head>
-      <Layout>
-        <div className="max-w-3xl mx-auto py-12 space-y-6 text-white">
-          <h1 className="text-4xl font-bold text-center text-red-400">Watch Logs</h1>
-          <div className="text-center mt-6 space-y-4">
-            <input
-              type="text"
-              placeholder="Search signal archives..."
-              className="px-4 py-2 bg-black border border-gray-600 rounded text-sm text-white w-full max-w-md"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button
-              onClick={handleSearch}
-              className="ml-2 px-4 py-2 border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors text-sm"
-            >
-              Search
-            </button>
-          </div>
-          <div className="mt-8 space-y-4">
-            {(filtered ?? posts).length > 0 ? (
-              (filtered ?? posts).map((post) => (
-                <div key={post.slug}>
-                  <Link href={`/posts/${post.slug}`} className="text-lg text-blue-400 hover:underline">
-                    {post.title}
-                  </Link>
-                  <p className="text-xs text-gray-400">{post.date}</p>
-                </div>
-              ))
-            ) : (
-              <p className="text-sm text-gray-500 italic text-center mt-8">No results found. Static interference?</p>
-            )}
-          </div>
-        </div>
-      </Layout>
-    </>
-  );
 }
