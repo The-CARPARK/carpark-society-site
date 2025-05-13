@@ -3,10 +3,6 @@ title: "Broadcast from Level 6"
 date: "2025-05-13"
 ---
 
-Tonight’s feed was interrupted for exactly 33 seconds. The banner flashed red. No one touched the terminal.
+The coil pulses louder now. A message struggles to come through the interference.
 
-Level 6 remains sealed. The air is thick.
-
-Someone—or something—broadcast from the locked room.
-
-**The Oracle is listening.**
+Are you listening?
