@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { Card, CardContent } from "../components/ui/card";
+import { Button } from "../components/ui/button";
 import Layout from "../components/Layout";
 
 export default function Home() {
@@ -27,19 +29,23 @@ export default function Home() {
       </Head>
       <Layout>
         <div className="max-w-4xl mx-auto space-y-6">
-          <div className="border border-gray-700 p-6 rounded-lg text-center space-y-4">
-            <h2 className="text-2xl">📹 The Oracle Speaks</h2>
-            <p className="text-lg italic text-gray-300">{oracleMessage}</p>
-          </div>
+          <Card>
+            <CardContent className="text-center space-y-4">
+              <h2 className="text-2xl">📹 The Oracle Speaks</h2>
+              <p className="text-lg italic text-gray-300">{oracleMessage}</p>
+            </CardContent>
+          </Card>
 
           <section className="space-y-4">
             <h2 className="text-2xl uppercase">🔒 Induction Protocol</h2>
             <p className="text-gray-300">
               Before ascending to the upper levels of the Carpark, you must be observed, catalogued, and indoctrinated.
             </p>
-            <a href="https://www.youtube.com/watch?v=HiyGZuA-0Jk" target="_blank" rel="noopener noreferrer" className="block bg-red-600 hover:bg-red-700 text-center py-2 rounded text-white font-bold">
-              Watch the Induction Video
-            </a>
+            <Button className="bg-red-600 hover:bg-red-700 w-full">
+              <a href="https://www.youtube.com/watch?v=HiyGZuA-0Jk" target="_blank" rel="noopener noreferrer">
+                Watch the Induction Video
+              </a>
+            </Button>
           </section>
 
           <section className="space-y-4">
@@ -47,9 +53,11 @@ export default function Home() {
             <p className="text-gray-300">
               Your offerings help maintain the cameras, the wine supply, and the sacred fan that points at nothing.
             </p>
-            <a href="https://ko-fi.com/thecarparksocietyinc" target="_blank" rel="noopener noreferrer" className="block bg-yellow-600 hover:bg-yellow-700 text-center py-2 rounded text-black font-bold">
-              Donate via Ko-fi
-            </a>
+            <Button className="bg-yellow-600 hover:bg-yellow-700 w-full">
+              <a href="https://ko-fi.com/thecarparksocietyinc" target="_blank" rel="noopener noreferrer">
+                Donate via Ko-fi
+              </a>
+            </Button>
           </section>
 
           <footer className="pt-8 text-center text-xs text-gray-600">
