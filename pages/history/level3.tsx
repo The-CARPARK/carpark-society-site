@@ -1,20 +1,18 @@
+import Layout from "@/components/layout";
 
-import Head from "next/head";
-import Layout from "../../components/Layout";
-
-export default function Level3() {
+export default function Level3Page() {
   return (
     <Layout>
-      <Head>
-        <title>Level 3 – Before the Beginning</title>
-        <meta name="description" content="Soundwalk as Ritual Performance and the Unsettling of Colonial Space" />
-      </Head>
-      <main className="prose prose-invert max-w-4xl mx-auto p-6">
-        <h1>Before the Beginning: Soundwalk as Ritual Performance and the Unsettling of Colonial Space</h1>
-        <p><strong>Introduction:</strong> On April 10–12, 2025, a surrealist soundwalk titled <em>Before the Beginning</em> was staged in central Wellington, beginning at Te Aro Park and culminating in an urban carpark...</p>
-        <p>...<em>[Content truncated for demo. Full report included in the file.]</em></p>
-        <p className="mt-8 italic text-sm">Full analysis includes ritual form, esoteric appropriation, and spatial critique. See complete text in Level 3 source file.</p>
-      </main>
+      <h1 className="text-2xl font-bold mb-4">Underground Tunnels Beneath and Around Bond Street</h1>
+      <p>This level explores the hidden infrastructure and buried history beneath Bond Street in Wellington. Key features include:</p>
+      <ul className="list-disc pl-6 mt-2">
+        <li><strong>Waimapihi Stream Culvert:</strong> An old brick-lined tunnel carrying the Waimapihi Stream beneath the city, with cultural and ecological significance.</li>
+        <li><strong>1990s Microtunnel:</strong> A hand-mined stormwater tunnel under Bond Street, designed to alleviate flooding while preserving archaeological layers.</li>
+        <li><strong>Subterranean Heritage:</strong> Wartime shelters, Victorian drains, and foundations from Wellington’s past discovered during modern excavation projects.</li>
+        <li><strong>Urban Risks:</strong> Earthquakes and flooding threaten these aging underground systems; engineers maintain them with camera inspections and future-proofing plans.</li>
+        <li><strong>Public Memory:</strong> Efforts like murals and historical trails keep the story of these hidden tunnels alive.</li>
+      </ul>
+      <p className="mt-4">The full report includes mapping data, utility records, and cultural analysis. For the Watchers, Bond Street is more than just a laneway—it’s a layered portal beneath the surface of the city.</p>
     </Layout>
   );
 }
