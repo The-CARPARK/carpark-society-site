@@ -1,10 +1,5 @@
-import type { AppProps } from 'next/app'
-import { MDXProvider } from '@mdx-js/react'
+import type { AppProps } from 'next/app';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <MDXProvider>
-      <Component {...pageProps} />
-    </MDXProvider>
-  )
+  return <Component {...pageProps} />;
 }
