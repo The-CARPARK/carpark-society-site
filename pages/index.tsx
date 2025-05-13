@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "../components/ui/card";
 import { Button } from "../components/ui/button";
@@ -28,12 +29,20 @@ export default function Home() {
       </Head>
       <main className="min-h-screen bg-black text-white font-mono p-8">
         <div className="max-w-4xl mx-auto space-y-6">
-          <h1 className="text-5xl font-bold text-center tracking-widest">
-            THE CARPARK SOCIETY
-          </h1>
-          <p className="text-center text-sm uppercase text-gray-400">
-            Surveillance. Ritual. Revelation.
-          </p>
+          <header className="text-center space-y-4">
+            <h1 className="text-5xl font-bold tracking-widest">
+              THE CARPARK SOCIETY
+            </h1>
+            <p className="text-sm uppercase text-gray-400">
+              Surveillance. Ritual. Revelation.
+            </p>
+            <nav className="space-x-6 mt-4 text-sm">
+              <Link href="/history" className="underline hover:text-yellow-400">History</Link>
+              <Link href="/blog" className="underline hover:text-yellow-400">Blog</Link>
+              <a href="https://facebook.com/thecarparksociety" className="underline hover:text-yellow-400" target="_blank" rel="noopener noreferrer">Facebook</a>
+              <a href="https://instagram.com/thecarparksociety" className="underline hover:text-yellow-400" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </nav>
+          </header>
 
           <Card>
             <CardContent className="text-center space-y-4">
@@ -61,7 +70,7 @@ export default function Home() {
             </p>
             <Button className="bg-yellow-600 hover:bg-yellow-700 w-full">
               <a href="https://ko-fi.com/thecarparksocietyinc" target="_blank" rel="noopener noreferrer">
-				Donate via Ko-fi
+                Donate via Ko-fi
               </a>
             </Button>
           </section>
