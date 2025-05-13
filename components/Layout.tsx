@@ -34,7 +34,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             href="/report"
             className="px-4 py-2 text-sm uppercase border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors"
           >
-            Membership
+            Membership Form
           </Link>
         </nav>
       </header>
