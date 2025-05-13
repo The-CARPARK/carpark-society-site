@@ -2,12 +2,18 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import Link from "next/link";
 import Layout from "../../components/Layout";
 
 export default function PostPage({ frontmatter, content }: any) {
   return (
     <Layout>
       <div className="max-w-3xl mx-auto py-8">
+        <Link href="/blog">
+          <span className="text-sm text-gray-400 hover:text-white transition-colors inline-block mb-4">
+            ← Back to Blog
+          </span>
+        </Link>
         <h1 className="text-4xl font-bold mb-2">{frontmatter.title}</h1>
         <p className="text-sm text-gray-500 mb-6">{frontmatter.date}</p>
         <div
