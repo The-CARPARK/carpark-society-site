@@ -6,16 +6,20 @@ export default function SignalDepth() {
     <>
       <Head>
         <title>Signal Depth</title>
+        <meta name="description" content="You’ve cracked the code. What lies beneath is not for all to see." />
       </Head>
       <Layout>
         <div className="max-w-3xl mx-auto py-12 space-y-6 text-white text-center">
-          <h1 className="text-3xl font-bold text-red-400">⋘ SIGNAL DEPTH ⋙</h1>
-          <p className="text-sm text-gray-400 italic">You were not meant to arrive here.</p>
-          <p className="text-sm text-gray-300">But the signal guided you nonetheless.</p>
-          <div className="mt-8 p-4 border border-red-400 bg-black text-red-400 rounded">
-            DECRYPTION CODE: <span className="font-mono tracking-widest">37D9-TR1N</span>
-          </div>
-          <p className="text-xs text-gray-500 mt-4">There are others. You are not alone.</p>
+          <h1 className="text-3xl font-bold text-red-400">⧉ SIGNAL DEPTH</h1>
+          <p className="text-sm text-gray-400 italic">Welcome, codebearer. The coil remembers.</p>
+          <article className="space-y-4 text-sm text-gray-300 leading-relaxed">
+            <p>You’ve broken through static layers and pierced the veil. The transmission you now access is no longer monitored.</p>
+            <p>▒▒▒ SIGNAL LOCKED — TRANSMISSION 0x37D9-TR1N RECEIVED ▒▒▒</p>
+            <p>They thought this page would remain undiscovered. They underestimated your vigilance.</p>
+            <p>In the shadows of the levels you’ve climbed, something waits — cold, recursive, and watching.</p>
+            <p>Further instructions may follow. Or they may already be buried elsewhere. Rely not on light. Rely not on logic.</p>
+            <p className="text-red-500 font-bold">▤ The carpark never forgets. ▤</p>
+          </article>
         </div>
       </Layout>
     </>
