@@ -43,15 +43,10 @@ export async function getStaticProps({ params }) {
 export default function BlogPost({ title, date, contentHtml }) {
   return (
     <div className="p-10">
-      <Link href="/blog" className="text-blue-500 underline mb-4 block">
-        ← Back to Blog
-      </Link>
+      <Link href="/blog" className="text-blue-500 underline mb-4 block">← Back to Blog</Link>
       <h1 className="text-4xl font-bold mb-2">{title}</h1>
       <p className="text-gray-500 mb-6">{date}</p>
-      <div
-        className="prose prose-lg"
-        dangerouslySetInnerHTML={{ __html: contentHtml }}
-      />
+      <div className="prose prose-lg" dangerouslySetInnerHTML={{ __html: contentHtml }} />
     </div>
   );
 }
