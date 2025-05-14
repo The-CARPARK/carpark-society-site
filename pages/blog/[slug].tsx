@@ -5,6 +5,7 @@ import { remark } from "remark";
 import html from "remark-html";
 import Layout from "../../components/Layout";
 import Head from "next/head";
+import Link from "next/link";
 
 export async function getStaticPaths() {
   const postsDirectory = path.join(process.cwd(), "posts");
@@ -54,6 +55,7 @@ export default function BlogPost({
         <title>{title}</title>
       </Head>
       <div className="max-w-3xl mx-auto py-12 text-white space-y-4">
+        <Link href="/blog" className="text-blue-400 underline">← Back to Blog</Link>
         <h1 className="text-3xl font-bold text-red-400">{title}</h1>
         <p className="text-gray-400 text-sm italic">{date}</p>
         <article
