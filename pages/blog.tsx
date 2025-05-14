@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 export default function BlogPage({ blogSearchBar }: { blogSearchBar?: JSX.Element }) {
   return (
     <div className="p-10">
