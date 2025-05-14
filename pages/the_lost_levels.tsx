@@ -1,13 +1,30 @@
+
 import Head from "next/head";
 import Layout from "../components/Layout";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function TheLostLevels() {
+  const [inputs, setInputs] = useState(["", "", ""]);
+  const [code, setCode] = useState("");
   const [decrypted, setDecrypted] = useState(false);
+  const router = useRouter();
+
+  const handleChange = (index: number, value: string) => {
+    const newInputs = [...inputs];
+    newInputs[index] = value.slice(-1); // Only one character
+    setInputs(newInputs);
+  };
 
   const handleDecrypt = () => {
-    setDecrypted(true);
+    if (inputs.every(i => i === "6")) {
+      setCode("A7X-93L-R9F");
+      setDecrypted(true);
+    } else {
+      alert("You are not worthy.");
+      router.push("/");
+    }
   };
 
   return (
@@ -23,25 +40,31 @@ export default function TheLostLevels() {
             Old logs, broken schematics, and corrupted glyphs litter this hidden node.
           </p>
 
+          <div className="flex justify-center space-x-2 mt-4">
+            {inputs.map((val, i) => (
+              <input
+                key={i}
+                type="text"
+                maxLength={1}
+                value={val}
+                onChange={(e) => handleChange(i, e.target.value)}
+                className="w-10 h-10 text-center text-black"
+              />
+            ))}
+          </div>
+
           <button
             onClick={handleDecrypt}
-            className="mt-6 px-4 py-2 border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors text-sm"
+            className="mt-4 px-4 py-2 border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors text-sm"
           >
-            ░░░ INITIATE DECRYPTION ░░░
+            Initiate Decryption
           </button>
 
           {decrypted && (
-            <div className="mt-6 text-green-400 text-sm space-y-2">
-              <p>▚ Decryption Successful ▞</p>
-              <p>REVELATION CODE: <span className="font-mono">A7X-93L-R9F</span></p>
+            <div className="mt-6 text-green-400 font-mono text-lg">
+              {code}
             </div>
           )}
-
-          <Link href="/deeper">
-            <button className="mt-10 px-4 py-2 border border-gray-600 rounded hover:bg-gray-800 hover:text-white transition-colors text-sm">
-              Venture Deeper
-            </button>
-          </Link>
         </div>
       </Layout>
     </>
