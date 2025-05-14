@@ -48,6 +48,11 @@ export default function TheLostLevels() {
             {inputs.map((val, i) => (
               <input
                 key={i}
+                onKeyDown={(e) => {
+                  if (i === 2 && e.key === "Enter") {
+                    handleDecrypt();
+                  }
+                }}
                 ref={inputRefs[i]}
                 type="text"
                 maxLength={1}
