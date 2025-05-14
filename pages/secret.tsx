@@ -18,6 +18,11 @@ export default function SecretPage() {
           Remember: keep watching this space. It is the hidden channel. More transmissions will come.
         </p>
         <p className="text-sm text-gray-600 mt-8">—The Custodians</p>
+      <div className="mt-8">
+          <a href="/" className="text-blue-400 hover:underline text-sm">
+            ← Back to Home
+          </a>
+        </div>
       </div>
     </div>
   );
