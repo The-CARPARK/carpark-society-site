@@ -12,13 +12,15 @@ export default function SecretSearch() {
   };
 
   return (
-    <input
-      type="text"
-      placeholder="Search the blog..."
-      className="border border-gray-400 px-3 py-2 rounded-md w-full max-w-md mt-4"
-      value={searchValue}
-      onChange={(e) => setSearchValue(e.target.value)}
-      onKeyDown={handleKeyDown}
-    />
+    <div className="mt-6 mb-10">
+      <input
+        type="text"
+        placeholder="Search the blog..."
+        className="w-full max-w-md px-4 py-2 rounded-md border border-gray-500 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
+    </div>
   );
 }
