@@ -5,6 +5,7 @@ import { remark } from "remark";
 import html from "remark-html";
 import Head from "next/head";
 import Link from "next/link";
+import Layout from "../../components/Layout";
 
 export async function getStaticPaths() {
   const postsDirectory = path.join(process.cwd(), "posts");
@@ -49,17 +50,19 @@ export default function BlogPost({
   contentHtml: string;
 }) {
   return (
-    <div className="p-10 text-white max-w-3xl mx-auto">
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <Link href="/blog" className="text-blue-400 underline block mb-4">← Back to Blog</Link>
-      <h1 className="text-4xl font-bold text-red-400 mb-2">{title}</h1>
-      <p className="text-gray-400 text-sm italic mb-6">{date}</p>
-      <div
-        className="prose prose-invert prose-sm text-gray-300"
-        dangerouslySetInnerHTML={{ __html: contentHtml }}
-      />
-    </div>
+    <Layout>
+      <div className="p-10 text-white max-w-3xl mx-auto">
+        <Head>
+          <title>{title}</title>
+        </Head>
+        <Link href="/blog" className="text-blue-400 underline block mb-4">← Back to Blog</Link>
+        <h1 className="text-4xl font-bold text-red-400 mb-2">{title}</h1>
+        <p className="text-gray-400 text-sm italic mb-6">{date}</p>
+        <div
+          className="prose prose-invert prose-sm text-gray-300"
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
+      </div>
+    </Layout>
   );
 }

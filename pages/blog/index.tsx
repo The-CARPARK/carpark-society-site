@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
+import Layout from "../../components/Layout";
 
 export async function getStaticProps() {
   const postsDirectory = path.join(process.cwd(), "posts");
@@ -27,18 +28,20 @@ export async function getStaticProps() {
 
 export default function BlogIndex({ posts }: { posts: { slug: string; title: string; date: string }[] }) {
   return (
-    <div className="p-10 text-white">
-      <h1 className="text-3xl font-bold mb-6">Blog</h1>
-      <ul className="space-y-4">
-        {posts.map(({ slug, title, date }) => (
-          <li key={slug}>
-            <Link href={`/blog/${slug}`} className="text-blue-500 text-xl underline">
-              {title}
-            </Link>
-            <p className="text-gray-400 text-sm">{date}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Layout>
+      <div className="p-10 text-white">
+        <h1 className="text-3xl font-bold mb-6">Blog</h1>
+        <ul className="space-y-4">
+          {posts.map(({ slug, title, date }) => (
+            <li key={slug}>
+              <Link href={`/blog/${slug}`} className="text-blue-500 text-xl underline">
+                {title}
+              </Link>
+              <p className="text-gray-400 text-sm">{date}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Layout>
   );
 }
