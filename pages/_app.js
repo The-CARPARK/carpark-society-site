@@ -3,8 +3,11 @@ import { useRouter } from 'next/router';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
+  const [showInput, setShowInput] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
+
+  const toggleInput = () => setShowInput(!showInput);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && searchValue.trim() === 'A7X-93L-R9F') {
@@ -14,15 +17,23 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <div>
-      <div className="p-4">
-        <input
-          type="text"
-          placeholder="Search the blog..."
-          className="w-full max-w-md mt-4 mb-4 px-4 py-2 rounded-md border border-gray-500 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
+      <div className="fixed top-4 right-4 z-50">
+        <button
+          onClick={toggleInput}
+          className="text-white text-xl bg-gray-800 hover:bg-gray-600 px-3 py-2 rounded-full"
+        >
+          🔍
+        </button>
+        {showInput && (
+          <input
+            type="text"
+            placeholder="Enter code..."
+            className="mt-2 w-64 px-3 py-2 rounded-md border border-gray-500 bg-white text-black focus:outline-none"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        )}
       </div>
       <Component {...pageProps} />
     </div>
