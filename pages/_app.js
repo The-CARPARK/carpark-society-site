@@ -1,17 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
+  const [showInput, setShowInput] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("✅ Secret search bar active");
-  }, []);
+  const handleToggle = () => setShowInput(!showInput);
 
   const handleKeyDown = (e) => {
-    console.log("Key pressed:", e.key, "Current value:", searchValue);
     if (e.key === 'Enter' && searchValue.trim() === 'A7X-93L-R9F') {
       router.push('/secret');
     }
@@ -19,18 +17,23 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <div className="bg-red-800 text-white p-4 text-center font-bold">
-        🔥 DEBUG: SEARCH BAR ACTIVE 🔥
-      </div>
-      <div className="bg-yellow-200 p-4 text-black text-center">
-        <input
-          type="text"
-          placeholder="Try typing the secret code..."
-          className="px-4 py-2 rounded border border-black text-black"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
+      <div className="fixed top-4 right-4 z-50">
+        <button
+          onClick={handleToggle}
+          className="text-white text-xl bg-gray-900 hover:bg-gray-700 px-3 py-2 rounded-full shadow"
+        >
+          🔍
+        </button>
+        {showInput && (
+          <input
+            type="text"
+            placeholder="Enter secret code..."
+            className="mt-2 w-64 px-3 py-2 rounded-md border border-gray-300 bg-white text-black focus:outline-none"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        )}
       </div>
       <Component {...pageProps} />
     </>
