@@ -2,7 +2,7 @@
 import Head from "next/head";
 import Layout from "../components/Layout";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 
 export default function TheLostLevels() {
@@ -10,11 +10,15 @@ export default function TheLostLevels() {
   const [code, setCode] = useState("");
   const [decrypted, setDecrypted] = useState(false);
   const router = useRouter();
+  const inputRefs = [useRef(null), useRef(null), useRef(null)];
 
   const handleChange = (index: number, value: string) => {
     const newInputs = [...inputs];
-    newInputs[index] = value.slice(-1); // Only one character
+    newInputs[index] = value.slice(-1);
     setInputs(newInputs);
+    if (value && index < inputRefs.length - 1) {
+      inputRefs[index + 1].current?.focus();
+    }
   };
 
   const handleDecrypt = () => {
@@ -44,15 +48,11 @@ export default function TheLostLevels() {
             {inputs.map((val, i) => (
               <input
                 key={i}
+                ref={inputRefs[i]}
                 type="text"
                 maxLength={1}
                 value={val}
-                onChange={(e) => {
-                handleChange(i, e.target.value);
-                if (e.target.value && i < 2) {
-                  document.getElementById(`input-${i + 1}`)?.focus();
-                }
-              }}
+                onChange={(e) => handleChange(i, e.target.value)}
                 className="w-10 h-10 text-center text-black"
               />
             ))}
