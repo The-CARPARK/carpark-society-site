@@ -1,67 +1,44 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
-import Link from 'next/link'
-import Layout from '../../components/Layout'
-import { useState } from 'react'
-import { useRouter } from 'next/router'
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import Link from "next/link";
 
 export async function getStaticProps() {
-  const files = fs.readdirSync(path.join('posts'))
-  const posts = files.map(filename => {
-    const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8')
-    const { data: frontmatter } = matter(markdownWithMeta)
+  const postsDirectory = path.join(process.cwd(), "posts");
+  const filenames = fs.readdirSync(postsDirectory);
+
+  const posts = filenames.map((filename) => {
+    const filePath = path.join(postsDirectory, filename);
+    const fileContents = fs.readFileSync(filePath, "utf8");
+    const { data } = matter(fileContents);
     return {
-      frontmatter,
-      slug: filename.replace('.mdx', '')
-    }
-  })
-  return { props: { posts } }
+      slug: filename.replace(/\.md$/, ""),
+      title: data.title,
+      date: data.date,
+    };
+  });
+
+  return {
+    props: {
+      posts,
+    },
+  };
 }
 
-export default function BlogPage({ posts }) {
-  const [searchValue, setSearchValue] = useState('');
-  const [noResults, setNoResults] = useState(false);
-  const router = useRouter();
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      if (searchValue.trim() === 'A7X-93L-R9F') {
-        router.push('/secret');
-      } else {
-        setNoResults(true);
-        setTimeout(() => setNoResults(false), 3000);
-      }
-    }
-  };
-
+export default function BlogIndex({ posts }: { posts: { slug: string; title: string; date: string }[] }) {
   return (
-    <Layout>
-      <div className="text-white max-w-3xl mx-auto py-12 space-y-8">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-4xl font-bold text-red-400">Blog</h1>
-          <div className="flex items-center space-x-4">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-64 px-3 py-2 rounded-md border border-gray-300 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            {noResults && (
-              <span className="text-red-600 text-sm">No results found.</span>
-            )}
-          </div>
-        </div>
-        {posts.map(({ frontmatter, slug }) => (
-          <div key={slug}>
-            <h2 className="text-2xl font-semibold">{frontmatter.title}</h2>
-            <p className="text-sm text-gray-400">{frontmatter.date}</p>
-            <Link href={`/blog/${slug}`} className="text-blue-400 underline">Read more</Link>
-          </div>
+    <div className="p-10 text-white">
+      <h1 className="text-3xl font-bold mb-6">Blog</h1>
+      <ul className="space-y-4">
+        {posts.map(({ slug, title, date }) => (
+          <li key={slug}>
+            <Link href={`/blog/${slug}`} className="text-blue-500 text-xl underline">
+              {title}
+            </Link>
+            <p className="text-gray-400 text-sm">{date}</p>
+          </li>
         ))}
-      </div>
-    </Layout>
-  )
+      </ul>
+    </div>
+  );
 }

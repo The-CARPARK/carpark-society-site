@@ -3,7 +3,6 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
-import Layout from "../../components/Layout";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -50,19 +49,17 @@ export default function BlogPost({
   contentHtml: string;
 }) {
   return (
-    <Layout>
+    <div className="p-10 text-white max-w-3xl mx-auto">
       <Head>
         <title>{title}</title>
       </Head>
-      <div className="max-w-3xl mx-auto py-12 text-white space-y-4">
-        <Link href="/blog" className="text-blue-400 underline">← Back to Blog</Link>
-        <h1 className="text-3xl font-bold text-red-400">{title}</h1>
-        <p className="text-gray-400 text-sm italic">{date}</p>
-        <article
-          className="prose prose-invert prose-sm text-gray-300 mt-4"
-          dangerouslySetInnerHTML={{ __html: contentHtml }}
-        />
-      </div>
-    </Layout>
+      <Link href="/blog" className="text-blue-400 underline block mb-4">← Back to Blog</Link>
+      <h1 className="text-4xl font-bold text-red-400 mb-2">{title}</h1>
+      <p className="text-gray-400 text-sm italic mb-6">{date}</p>
+      <div
+        className="prose prose-invert prose-sm text-gray-300"
+        dangerouslySetInnerHTML={{ __html: contentHtml }}
+      />
+    </div>
   );
 }
