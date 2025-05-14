@@ -47,7 +47,12 @@ export default function TheLostLevels() {
                 type="text"
                 maxLength={1}
                 value={val}
-                onChange={(e) => handleChange(i, e.target.value)}
+                onChange={(e) => {
+                handleChange(i, e.target.value);
+                if (e.target.value && i < 2) {
+                  document.getElementById(`input-${i + 1}`)?.focus();
+                }
+              }}
                 className="w-10 h-10 text-center text-black"
               />
             ))}
