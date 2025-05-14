@@ -14,33 +14,35 @@ function MyApp({ Component, pageProps }: AppProps) {
         router.push('/secret');
       } else {
         setNoResults(true);
-        setTimeout(() => setNoResults(false), 3000); // Hide message after 3s
+        setTimeout(() => setNoResults(false), 3000);
       }
     }
   };
 
-  const showSearch = router.pathname === '/blog';
+  const blogSearchBar = (
+    <div className="flex items-center space-x-4 mt-4">
+      <input
+        type="text"
+        placeholder="Search..."
+        className="w-64 px-3 py-2 rounded-md border border-gray-300 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
+      {noResults && (
+        <span className="text-red-600 text-sm">No results found.</span>
+      )}
+    </div>
+  );
+
+  const isBlogPage = router.pathname === '/blog';
 
   return (
     <>
-      {showSearch && (
-        <div className="fixed top-4 right-4 z-50 text-sm">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-64 px-3 py-2 rounded-md border border-gray-300 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-          {noResults && (
-            <div className="mt-2 text-red-600 bg-white px-2 py-1 rounded shadow border border-red-300">
-              No results found.
-            </div>
-          )}
-        </div>
-      )}
-      <Component {...pageProps} />
+      <Component
+        {...pageProps}
+        blogSearchBar={isBlogPage ? blogSearchBar : null}
+      />
     </>
   );
 }
