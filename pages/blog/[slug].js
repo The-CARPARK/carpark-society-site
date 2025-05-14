@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import Link from 'next/link';
 
 export async function getStaticPaths() {
   const postsDirectory = path.join(process.cwd(), 'posts');
@@ -42,6 +43,9 @@ export async function getStaticProps({ params }) {
 export default function BlogPost({ title, date, contentHtml }) {
   return (
     <div className="p-10">
+      <Link href="/blog" className="text-blue-500 underline mb-4 block">
+        ← Back to Blog
+      </Link>
       <h1 className="text-4xl font-bold mb-2">{title}</h1>
       <p className="text-gray-500 mb-6">{date}</p>
       <div
